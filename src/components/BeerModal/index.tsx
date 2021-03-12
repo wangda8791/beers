@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from '@material-ui/core';
-
 import { Beer } from 'src/models';
-
 import BeerTable from '../BeerTable';
 
 interface IBeerModal {

@@ -1,4 +1,4 @@
-import { Container, makeStyles, Theme } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,16 +7,7 @@ import { Beer } from 'src/models';
 import * as actions from 'src/redux/actions';
 import { IAppState } from 'src/redux/store';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    maxHeight: '100vh',
-    width: theme.spacing(75),
-    margin: 'auto',
-  },
-}));
-
 const BeerList: React.FC = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   const { beers } = useSelector((state: IAppState) => state.beer);
@@ -53,7 +44,7 @@ const BeerList: React.FC = () => {
   }, []);
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <BeerChart handleClick={handleSelectBeers} height="250" />
       <BeerTable beers={storedBeers} handleChange={handleGetBeers} />
       <BeerModal

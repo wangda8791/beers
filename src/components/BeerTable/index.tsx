@@ -63,8 +63,8 @@ const BeerTable: React.FC<IBeerTableProps> = ({
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell align="center">Name</TableCell>
-              <TableCell align="center">Tagline</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Tagline</TableCell>
               <TableCell align="center">Photo</TableCell>
               <TableCell align="center">ABV</TableCell>
             </TableRow>
@@ -72,8 +72,8 @@ const BeerTable: React.FC<IBeerTableProps> = ({
           <TableBody>
             {beers.map((beer) => (
               <TableRow hover role="checkbox" tabIndex={-1} key={beer.id}>
-                <TableCell align="center">{beer.name}</TableCell>
-                <TableCell align="center">{beer.tagline}</TableCell>
+                <TableCell>{beer.name}</TableCell>
+                <TableCell>{beer.tagline}</TableCell>
                 <TableCell align="center">
                   <NavLink to={`/beer/${beer.id}`}>
                     <CardMedia

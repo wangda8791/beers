@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import Chart from 'react-apexcharts';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-
 import { Beer } from 'src/models';
 import { IAppState } from 'src/redux/store';
 
@@ -15,13 +14,16 @@ interface IBeerChart {
 const BeerChart: React.FC<IBeerChart> = ({ handleClick, width, height }) => {
   const { beers } = useSelector((state: IAppState) => state.beer);
 
-  const handleClickBar = (_config: any) => {
-    const { dataPointIndex, config } = _config;
-    const beersByAvb = beers.filter(
-      (beer) => beer.abv === Number(config.xaxis.categories[dataPointIndex])
-    );
-    handleClick(beersByAvb);
-  };
+  const handleClickBar = useCallback(
+    (_config: any) => {
+      const { dataPointIndex, config } = _config;
+      const beersByAvb = beers.filter(
+        (beer) => beer.abv === Number(config.xaxis.categories[dataPointIndex])
+      );
+      if (beersByAvb.length) handleClick(beersByAvb);
+    },
+    [beers, handleClick]
+  );
 
   const { options, series } = useMemo(() => {
     const data: Array<{ abv: number; count: number }> = [];
@@ -65,8 +67,7 @@ const BeerChart: React.FC<IBeerChart> = ({ handleClick, width, height }) => {
         },
       ],
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [beers]);
+  }, [beers, handleClickBar]);
 
   return (
     <>
@@ -88,7 +89,7 @@ BeerChart.propTypes = {
 };
 
 BeerChart.defaultProps = {
-  width: '600',
+  width: '100%',
   height: '400',
 };
 
